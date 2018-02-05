@@ -7,6 +7,7 @@
 - Crypto（签名）:— md5,sha
 - OS
 - Path
+- Socket
 - Events:事件队列
 - Query Strings
 - 网络:TCP-稳定,Net UDP-快,UDP/Datagram
