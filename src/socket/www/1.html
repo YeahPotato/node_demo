@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://localhost:1234/socket.io/socket.io.js"></script>
+    <script>
+        window.onload = function () {
+            let sock = io.connect('ws://localhost:1234');
+
+            sock.on('connect', () => {
+                console.log('连接成功');
+            })
+
+            sock.on('msg', data => {
+                console.log(`收到消息：${data}`);
+            });
+
+            setInterval(() => {
+                sock.emit('msg', '我是客户端的消息');
+            }, 500)
+        }
+    </script>
+</head>
+
+<body>
+    scoket.io
+</body>
+
+</html>
