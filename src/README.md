@@ -216,3 +216,68 @@
   ```
   
 </details>
+
+<details>
+  <summary>formData_express_cors</summary>
+  
+  ##### 模块：`express`
+  ##### node 框架
+
+  - `express` 用express开启服务和midware的使用
+  ```html
+    <body>
+        <input id="file" type="file">
+        <input id="btn" type="button" value="提交">
+        <script>
+            window.onload = function () {
+                let oBtn = document.querySelector('#btn');
+                let oFile = document.querySelector('#file');
+
+                oBtn.onclick = function () {
+                    let oData = new FormData();
+                    oData.append('file', oFile.files[0]);
+
+                    let oAjax = new XMLHttpRequest();
+                    oAjax.open('POST', 'http://localhost:8086/api', true);
+                    oAjax.send(oData);
+
+                    oAjax.onreadystatechange = function () {
+                        if (oAjax.readyState === 4) {
+                            if (oAjax.status >= 200 && oAjax.status < 300 || oAjax.status == 304) {
+                                alert(`success:${oAjax.responseText}`)
+                            } else {
+                                alert(`error:${oAjax.responseText}`)
+                            }
+                        }
+                    }
+                };
+            };
+        </script>
+    </body>
+  ```
+  ```javascript
+    const express = require('express');
+    // 解析post数据
+    const bodyParser = require('body-parser');
+    // 解析post文件数据
+    const multer = require('multer');
+
+    let server = express();
+    server.listen(8086);
+
+    let multerObj = multer({dest:'./upload/'}); 
+
+    server.use(bodyParser.urlencoded({extended:false}));
+    server.use(multerObj.any());
+    server.use(express.static('./www/'));
+
+
+    // request
+    server.post('/api',(req,res)=>{
+        console.log(req.files);
+        res.send('upload file successed');
+    })
+
+  ```
+  
+</details>
