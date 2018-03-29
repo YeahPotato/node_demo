@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mysql": "^2.15.0",
+    "uuid": "^3.2.1"
+  }
+}

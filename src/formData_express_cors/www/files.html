@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="file" type="file">
+    <input id="btn" type="button" value="提交">
+    <script>
+        window.onload = function () {
+            let oBtn = document.querySelector('#btn');
+            let oFile = document.querySelector('#file');
+
+            oBtn.onclick = function () {
+                let oData = new FormData();
+                oData.append('file', oFile.files[0]);
+
+                let oAjax = new XMLHttpRequest();
+                oAjax.open('POST', 'http://localhost:8086/api', true);
+                oAjax.send(oData);
+
+                oAjax.onreadystatechange = function () {
+                    if (oAjax.readyState === 4) {
+                        if (oAjax.status >= 200 && oAjax.status < 300 || oAjax.status == 304) {
+                            alert(`success:${oAjax.responseText}`)
+                        } else {
+                            alert(`error:${oAjax.responseText}`)
+                        }
+                    }
+                }
+            };
+        };
+    </script>
+</body>
+
+</html>
